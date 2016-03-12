@@ -6,6 +6,8 @@ require 'ruby-des/key_schedule'
 require 'ruby-des/xor'
 
 module RubyDES
+
+  # the following arrays are the initial and final permutation matrixes
   IP_L = [0x3a, 0x32, 0x2a, 0x22, 0x1a, 0x12, 0x0a, 0x02,
           0x3c, 0x34, 0x2c, 0x24, 0x1c, 0x14, 0x0c, 0x04,
           0x3e, 0x36, 0x2e, 0x26, 0x1e, 0x16, 0x0e, 0x06,
@@ -48,25 +50,26 @@ module RubyDES
     protected
     
     def run(operation)
-      l = [] # l[0] is the IP_1_L permutation of the data block, l[1..16] are the results of each round of encryption.
-      r = [] # r[0] is the IP_1_R permutation of the data block, r[1..16] are the results of each round of encryption.
       
-      l << IP_L.collect{|p| data.bit_array[p - 1]}
-      r << IP_R.collect{|p| data.bit_array[p - 1]}
+      # do the initial permutation
+      # left[i] and right[i] are the parts of the data block at each step of algorithm
+      left = [] # l[0] is the IP_1_L permutation of the data block, l[1..16] are the results of each round of encryption.
+      right = [] # r[0] is the IP_1_R permutation of the data block, r[1..16] are the results of each round of encryption.
+      left << IP_L.collect{|p| data.bit_array[p - 1]}
+      right << IP_R.collect{|p| data.bit_array[p - 1]}
       
-      case operation
-      when :encrypt
-        k = KeySchedule.new(key.bit_array).sub_keys
-      when :decrypt
-        k = KeySchedule.new(key.bit_array).sub_keys.reverse
-      end
+      # get keys
+      keys = KeySchedule.new(key.bit_array).sub_keys
+      keys.reverse! if operation == :decrypt
       
+      # rounds of encryption
       16.times do |i|
-        l << r[i]
-        r << XOR.run(Feistel.run(r[i], k[i]), l[i])
-      end
-      
-      return RubyDES::Block.new(FP.collect{|p| (r.last + l.last)[p - 1]})
+        left << right[i]
+        right << XOR.run(Feistel.run(right[i], keys[i]), left[i])
+      end  
+
+      # final permutation
+      return RubyDES::Block.new(FP.collect{|p| (right.last + left.last)[p - 1]})
     end
   end
   
