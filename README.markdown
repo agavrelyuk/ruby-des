@@ -10,3 +10,6 @@ Based on Robert Sosinski's DES implementation(https://github.com/robertsosinski/
     * encoder-decoder(run.rb)
 #### known issues:
     * works only with latin alphabet in utf-8
+    
+### Version 0.02
+  Finally works with all the utf-8 characters!    

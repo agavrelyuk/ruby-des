@@ -74,6 +74,7 @@ module RubyDES
     attr_reader :string, :bit_array
     
     def initialize(input)
+            p input.inspect
       if input.is_a?(String)
         #p input
         raise "RubyDES::InvalidStringLength: Input String must contain (8) characters." unless input.length.eql?(8)
@@ -83,7 +84,7 @@ module RubyDES
       elsif input.is_a?(Array)
 
         raise "RubyDES::InvalidArraySize: Input Array must contain (64) bits." unless input.size.eql?(64)
-        #p input.inspect
+
         @string    = [input.join].pack('B*')#.force_encoding
         @bit_array = input
       else
