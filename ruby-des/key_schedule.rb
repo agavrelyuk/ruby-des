@@ -1,3 +1,4 @@
+#encoding: utf-8
 class KeySchedule
   attr_accessor :sub_keys
   attr_reader :key

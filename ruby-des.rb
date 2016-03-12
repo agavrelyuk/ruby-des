@@ -1,3 +1,4 @@
+#encoding: utf-8
 $:.unshift(File.dirname(__FILE__))
 
 require 'ruby-des/feistel'
@@ -74,14 +75,16 @@ module RubyDES
     
     def initialize(input)
       if input.is_a?(String)
+        #p input
         raise "RubyDES::InvalidStringLength: Input String must contain (8) characters." unless input.length.eql?(8)
         
         @string    = input
         @bit_array = input.unpack('B*').join.split('').collect{|b| b.to_i}
       elsif input.is_a?(Array)
+
         raise "RubyDES::InvalidArraySize: Input Array must contain (64) bits." unless input.size.eql?(64)
-        
-        @string    = input.join.to_a.pack('B*')
+        #p input.inspect
+        @string    = [input.join].pack('B*')#.force_encoding
         @bit_array = input
       else
         raise "RubyDES::InvalidFormat: Input must be a String or an Array."

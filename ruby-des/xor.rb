@@ -1,3 +1,4 @@
+#encoding: utf-8
 module XOR
   def self.run(x, y)
     output = []
