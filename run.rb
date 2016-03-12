@@ -61,14 +61,8 @@ def do_file( options = { filename: '', action: '' } )
     
     input_file.each_byte do |byte|
       
-      byte = byte.to_s(2).split('').map(&:to_i)
-      
-      # adding zero bits to equal all bit views by length  
-      diff = 8 - byte.size      
-      diff.times do
-        byte.insert(0, 0)
-      end
-            
+      byte = byte.to_s(2).rjust(8, '0').split('').map(&:to_i)
+
       if bytes_count < 8
         current_block << byte
         bytes_count += 1

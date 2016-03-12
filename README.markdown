@@ -8,6 +8,14 @@ Just execute `ruby run.rb` and follow the commands
 
 ## History of versions
 
+### Version 0.1.1
+#### fixed:
+	* extra loop
+#### added:
+	* some comments
+	* cosmetic improvements
+ 	
+
 ### Version 0.1
 #### added:
 	* interactive interface

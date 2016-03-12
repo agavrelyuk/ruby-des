@@ -1,9 +1,8 @@
 #encoding: utf-8
-$:.unshift(File.dirname(__FILE__))
 
-require 'ruby-des/feistel'
-require 'ruby-des/key_schedule'
-require 'ruby-des/xor'
+require './ruby-des/feistel'
+require './ruby-des/key_schedule'
+require './ruby-des/xor'
 
 module RubyDES
 
