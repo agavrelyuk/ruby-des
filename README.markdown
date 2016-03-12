@@ -4,7 +4,7 @@ Based on Robert Sosinski's DES implementation(https://github.com/robertsosinski/
 
 ## How to use
 Just execute `ruby run.rb` and follow the commands
-
+If you want to start with cleared from standart output files folder, you can use `clearun.sh`
 
 ## History of versions
 
@@ -12,6 +12,7 @@ Just execute `ruby run.rb` and follow the commands
 #### fixed:
 	* extra loop
 #### added:
+	* bash run-file with clearing old files
 	* some comments
 	* cosmetic improvements
  	
