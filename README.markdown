@@ -3,7 +3,8 @@ Encoder-decoder using DES
 Based on Robert Sosinski's DES implementation(https://github.com/robertsosinski/ruby-des)
 
 ## How to use
-Just execute `ruby run.rb` and follow the commands
+Just execute `ruby run.rb` and follow the commands.
+
 If you want to start with cleared from standart output files folder, you can use `clearun.sh`
 
 ## History of versions
