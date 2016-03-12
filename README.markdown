@@ -13,3 +13,8 @@ Based on Robert Sosinski's DES implementation(https://github.com/robertsosinski/
     
 ### Version 0.02
   Finally works with all the utf-8 characters!    
+
+### Version 0.1
+#### added:
+	* interactive interface
+	* some code review
