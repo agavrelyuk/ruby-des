@@ -1,53 +1,12 @@
-RubyDES
-=======
+Encoder-decoder using DES
 
-RubyDES is a full Ruby implementation of the Data Encryption Standard.  The purpose of this 
-project was to allow Ruby programmers interested in cryptography a glimpse of how a robust 
-cryptographic algorithm functions in a language they understand.
+Based on Robert Sosinski's DES implementation(https://github.com/robertsosinski/ruby-des)
 
-The best way to understand the RubyDES source code is by following along with a FIPS 46, 
-which you can find at http://csrc.nist.gov/publications/fips/fips46-3/fips46-3.pdf
+### Version 0.01
 
-NOTE: DES is deprecated, and as such, you should not use this implementation in any project you 
-are developing.  I highly recommend the AES, TwoFish or Serpent algorithms through the OpenSSL 
-library instead.
-
-Running RubyDES
-===============
-
-Using RubyDES is pretty easy.  First, construct a new data and key block.
-
-    data = RubyDES::Block.new('mysecret')
-    key  = RubyDES::Block.new('hushhush')
-
-Then, build a new `RubyDES::Ctx` object and supply the data and key block.
-
-    des = RubyDES::Ctx.new(data, key)
-
-Finally, let it go.
-
-    encrypted_data = des.encrypt
-
-You will then be returned a DES encrypted block that is completely secure against eavesdropping 
-(if it were still 1997).
-
-To decrypt an encrypted data block, just build a new `RubyDES::Ctx` object in similar 
-fashion as before.
-
-    un_des = RubyDES::Ctx.new(encrypted_data, key)
-
-And run the DES with the key schedule reversed.
-
-    decrypted_data = un_des.decrypt
-
-You can then check to see if it all worked.
-
-    data.bit_array.eql?(decrypted_data.bit_array)
-
-Enjoy!
-
-Feedback
-========
-
-If you have any questions, comments or just want to talk shop about crypto, feel free to reach me 
-through my website at http://www.robertsosinski.com.
+#### fixed: 
+    * string to array crash
+#### added:
+    * encoder-decoder(run.rb)
+#### known issues:
+    * works only with latin alphabet in utf-8
