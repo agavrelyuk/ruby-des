@@ -84,8 +84,6 @@ module Feistel
   
   def self.run(r, k)    
     b = [] # b[0..7] is e_xor_k prepped as 8 6-bit arrays for s-box substitution.
-    m = [] # m[0..7] is the row of the value when performing a s-box lookup.
-    n = [] # n[0..7] is the column of the value when performing a s-box lookup.
     
     e = E.collect{|p| r[p - 1]} # Expand r (right half data block) using E.
     
