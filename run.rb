@@ -1,5 +1,6 @@
 #encoding: utf-8
 require './ruby-des'
+require 'benchmark'
 
 @key = RubyDES::Block.new("kerouac!")
 def set_key(block)
@@ -145,8 +146,8 @@ def run_interface
   print "Enter filename of output or blank for default: "
   output_filename = gets.chomp
   set_output(action, output_filename) unless output_filename.length.zero?
-
-  do_file(filename: source, action: action)
+  puts Benchmark.measure{ do_file(filename: source, action: action) }
+  puts "user system total real"
 end
 
 run_interface

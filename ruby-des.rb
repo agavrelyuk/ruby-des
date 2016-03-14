@@ -49,14 +49,15 @@ module RubyDES
     protected
     
     def run(operation)
-      
+      puts "Working at block, which looks like\n #{data.string}\n\n\n"      
+      puts "Before initial permutation:\n #{data.bit_array.join}"
       # do the initial permutation
       # left[i] and right[i] are the parts of the data block at each step of algorithm
       left = [] # l[0] is the IP_1_L permutation of the data block, l[1..16] are the results of each round of encryption.
       right = [] # r[0] is the IP_1_R permutation of the data block, r[1..16] are the results of each round of encryption.
       left << IP_L.collect{|p| data.bit_array[p - 1]}
       right << IP_R.collect{|p| data.bit_array[p - 1]}
-      
+      puts "After initial permutation:\n #{(left + right).join}"
       # get keys
       keys = KeySchedule.new(key.bit_array).sub_keys
       keys.reverse! if operation == :decrypt
@@ -64,11 +65,15 @@ module RubyDES
       # rounds of encryption
       16.times do |i|
         left << right[i]
-        right << XOR.run(Feistel.run(right[i], keys[i]), left[i])
+        right << XOR.run(Feistel.run(right[i], keys[i]), left[i]) 
+        puts "After #{i+1} round:\n #{(left[i] + right[i]).join}"   
       end  
-
+      
       # final permutation
-      return RubyDES::Block.new(FP.collect{|p| (right.last + left.last)[p - 1]})
+      final = RubyDES::Block.new(FP.collect{|p| (right.last + left.last)[p - 1]})
+      puts "Finally:\n #{final.string}"
+
+      return final
     end
   end
   
